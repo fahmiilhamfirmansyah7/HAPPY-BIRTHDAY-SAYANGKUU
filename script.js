@@ -2,26 +2,23 @@
 // LOADING SCREEN
 // ===========================
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
-    setTimeout(()=>{
+    const loading = document.getElementById("loading");
 
-        const loading = document.getElementById("loading");
+    setTimeout(() => {
 
-        loading.style.opacity="0";
+        loading.style.opacity = "0";
 
+        setTimeout(() => {
 
-        setTimeout(()=>{
-
-            loading.style.display="none";
+            loading.style.display = "none";
 
             document
             .getElementById("welcome")
             .classList.remove("hide");
 
-
         },1000);
-
 
     },3000);
 
@@ -36,25 +33,24 @@ window.addEventListener("load",()=>{
 
 const startBtn = document.getElementById("startBtn");
 
-
 if(startBtn){
 
-startBtn.onclick = ()=>{
+    startBtn.addEventListener("click",()=>{
+
+        document
+        .getElementById("welcome")
+        .style.display="none";
 
 
-    document
-    .getElementById("welcome")
-    .style.display="none";
+        document
+        .getElementById("envelope")
+        .classList.remove("hide");
 
 
-    document
-    .getElementById("envelope")
-    .classList.remove("hide");
-
-
-};
+    });
 
 }
+
 
 
 
@@ -63,55 +59,47 @@ startBtn.onclick = ()=>{
 // OPEN ENVELOPE
 // ===========================
 
-
 const envelope =
 document.querySelector(".envelope-box");
 
 
 if(envelope){
 
-
-envelope.onclick=()=>{
-
-
-document
-.querySelector(".envelope-top")
-.style.transform =
-"rotateX(180deg)";
+    envelope.addEventListener("click",()=>{
 
 
+        document
+        .querySelector(".envelope-top")
+        .style.transform="rotateX(180deg)";
 
-document
-.querySelector(".letter-preview")
-.style.top="-20px";
+
+        document
+        .querySelector(".letter-preview")
+        .style.top="-20px";
 
 
 
-setTimeout(()=>{
+        setTimeout(()=>{
 
 
-document
-.getElementById("envelope")
-.style.display="none";
+            document
+            .getElementById("envelope")
+            .style.display="none";
 
 
-
-document
-.getElementById("letter")
-.classList.remove("hide");
-
+            document
+            .getElementById("letter")
+            .classList.remove("hide");
 
 
-startTyping();
+            startTyping();
 
 
-
-},1000);
+        },1000);
 
 
 
-};
-
+    });
 
 }
 
@@ -123,20 +111,19 @@ startTyping();
 // LETTER TYPING
 // ===========================
 
-
 const message = `
 
 Selamat ulang tahun Sindi ❤️
 
-Semoga di umur yang baru ini
-kamu selalu diberikan kebahagiaan,
-kesehatan, dan semua impianmu
-bisa tercapai.
+Semoga kamu selalu diberikan
+kebahagiaan, kesehatan,
+dan semua impianmu tercapai.
 
-Terima kasih sudah menjadi
-bagian indah dalam hidupku.
+Terima kasih sudah hadir
+dan menjadi seseorang yang
+berarti dalam hidupku.
 
-Tetap menjadi Sindi yang aku sayangi.
+Tetap jadi Sindi yang aku sayangi.
 
 I Love You ❤️
 
@@ -144,58 +131,44 @@ I Love You ❤️
 
 `;
 
-
-
-let index = 0;
-
+let typingIndex = 0;
 
 
 function startTyping(){
 
-
-const typing =
-document.getElementById("typing");
-
+    const typing =
+    document.getElementById("typing");
 
 
-function write(){
+    if(!typing) return;
 
 
-if(index < message.length){
+    function write(){
+
+        if(typingIndex < message.length){
 
 
-typing.innerHTML +=
-message.charAt(index);
+            typing.innerHTML +=
+            message.charAt(typingIndex);
 
 
-index++;
+            typingIndex++;
+
+            setTimeout(write,50);
 
 
-setTimeout(write,50);
+        }else{
 
 
-
-}else{
-
-
-setTimeout(()=>{
-
-showNextSections();
-
-},3000);
+            setTimeout(showNextSections,2000);
 
 
+        }
 
-}
-
-
-}
+    }
 
 
-
-write();
-
-
+    write();
 
 }
 
@@ -204,72 +177,70 @@ write();
 
 
 // ===========================
-// NEXT SECTION
+// SHOW NEXT SECTION
 // ===========================
-
 
 function showNextSections(){
 
 
-document
-.getElementById("letter")
-.style.display="none";
+    const sections=[
+
+        "gallery",
+        "timeline",
+        "reasons",
+        "ending"
+
+    ];
+
+
+    let delay=0;
+
+
+    document
+    .getElementById("letter")
+    .style.display="none";
 
 
 
-const sections=[
-
-"gallery",
-
-"timeline",
-
-"reasons",
-
-"ending"
-
-];
+    sections.forEach(section=>{
 
 
-
-let delay=0;
-
+        setTimeout(()=>{
 
 
-sections.forEach(section=>{
+            const el =
+            document.getElementById(section);
 
 
-setTimeout(()=>{
+            if(el){
+
+                el.classList.remove("hide");
 
 
-document
-.getElementById(section)
-.classList.remove("hide");
+                el.scrollIntoView({
+
+                    behavior:"smooth"
+
+                });
+
+            }
+
+
+        },delay);
 
 
 
-document
-.getElementById(section)
-.scrollIntoView({
-
-behavior:"smooth"
-
-});
+        delay += 3500;
 
 
 
-},delay);
-
-
-
-delay += 4000;
-
-
-
-});
-
+    });
 
 
 }
+
+
+
 
 
 
@@ -278,109 +249,119 @@ delay += 4000;
 // MUSIC
 // ===========================
 
-
 const musicBtn =
 document.getElementById("musicBtn");
 
 
-let music =
-new Audio("assets/music/music.mp3");
+const music =
+new Audio("./assets/music/music.mp3");
 
 
 music.loop=true;
 
 
-let playing=false;
-
+let musicPlaying=false;
 
 
 if(musicBtn){
 
 
-musicBtn.onclick=()=>{
+    musicBtn.onclick=()=>{
 
 
-if(!playing){
+        if(!musicPlaying){
 
 
-music.play();
+            music.play()
+            .catch(()=>{
 
-musicBtn.innerHTML="🔊";
+                alert("Masukkan file music.mp3 ke assets/music");
 
-playing=true;
-
-
-}else{
+            });
 
 
-music.pause();
+            musicBtn.innerHTML="🔊";
 
-musicBtn.innerHTML="🎵";
+            musicPlaying=true;
 
-playing=false;
+
+        }else{
+
+
+            music.pause();
+
+            musicBtn.innerHTML="🎵";
+
+            musicPlaying=false;
+
+
+        }
+
+
+    };
 
 
 }
 
 
-};
-
-
-}
 
 
 
 
 
 // ===========================
-// FLOATING HEARTS
+// FLOATING HEART
 // ===========================
-
 
 function createHeart(){
 
 
-const heart =
-document.createElement("div");
+    const hearts =
+    document.getElementById("hearts");
 
 
-heart.innerHTML="❤️";
+    if(!hearts) return;
 
 
-heart.style.position="fixed";
-
-heart.style.left =
-Math.random()*100+"vw";
+    const heart =
+    document.createElement("div");
 
 
-heart.style.bottom="-20px";
+    heart.innerHTML="❤️";
 
 
-heart.style.fontSize =
-Math.random()*25+15+"px";
+    heart.style.position="fixed";
+
+    heart.style.left =
+    Math.random()*100+"vw";
 
 
-heart.style.animation =
-"float 6s linear";
+    heart.style.bottom="-20px";
 
 
-document
-.getElementById("hearts")
-.appendChild(heart);
+    heart.style.fontSize =
+    (Math.random()*20+15)+"px";
+
+
+    heart.style.animation=
+    "float 6s linear";
+
+
+    hearts.appendChild(heart);
 
 
 
-setTimeout(()=>{
+    setTimeout(()=>{
 
-heart.remove();
+        heart.remove();
 
-},6000);
+    },6000);
 
 
 }
 
 
-setInterval(createHeart,500);
+setInterval(createHeart,700);
 
 
 
@@ -388,55 +369,59 @@ setInterval(createHeart,500);
 
 
 // ===========================
-// SAKURA
+// SAKURA FALL
 // ===========================
-
 
 function createSakura(){
 
 
-const sakura =
-document.createElement("div");
+    const sakuraBox =
+    document.getElementById("sakura");
 
 
-sakura.innerHTML="🌸";
-
-
-sakura.style.position="fixed";
-
-
-sakura.style.top="-20px";
-
-
-sakura.style.left =
-Math.random()*100+"vw";
-
-
-sakura.style.fontSize="25px";
-
-
-sakura.style.animation =
-"fall 8s linear";
-
-
-document
-.getElementById("sakura")
-.appendChild(sakura);
+    if(!sakuraBox) return;
 
 
 
-setTimeout(()=>{
+    const sakura =
+    document.createElement("div");
 
-sakura.remove();
 
-},8000);
+    sakura.innerHTML="🌸";
 
+
+    sakura.style.position="fixed";
+
+    sakura.style.top="-30px";
+
+
+    sakura.style.left =
+    Math.random()*100+"vw";
+
+
+    sakura.style.fontSize="25px";
+
+
+    sakura.style.animation=
+    "fall 8s linear";
+
+
+    sakuraBox.appendChild(sakura);
+
+
+
+    setTimeout(()=>{
+
+        sakura.remove();
+
+    },8000);
 
 
 }
 
 
-setInterval(createSakura,800);
+setInterval(createSakura,1000);
+
 
 
 
@@ -447,47 +432,45 @@ setInterval(createSakura,800);
 // STARS
 // ===========================
 
-
 const stars =
 document.getElementById("stars");
-
 
 
 if(stars){
 
 
-for(let i=0;i<150;i++){
+    for(let i=0;i<120;i++){
 
 
-let star =
-document.createElement("div");
+        const star =
+        document.createElement("div");
 
 
-star.style.position="absolute";
+        star.style.position="absolute";
 
-star.style.width="2px";
+        star.style.width="2px";
 
-star.style.height="2px";
+        star.style.height="2px";
 
-star.style.background="white";
-
-
-star.style.left =
-Math.random()*100+"%";
+        star.style.background="white";
 
 
-star.style.top =
-Math.random()*100+"%";
+        star.style.left =
+        Math.random()*100+"%";
 
 
-stars.appendChild(star);
+        star.style.top =
+        Math.random()*100+"%";
 
+
+        stars.appendChild(star);
+
+
+    }
 
 
 }
 
-
-}
 
 
 
@@ -498,10 +481,8 @@ stars.appendChild(star);
 // CELEBRATE
 // ===========================
 
-
 const celebrate =
 document.getElementById("celebrate");
-
 
 
 if(celebrate){
@@ -510,43 +491,42 @@ if(celebrate){
 celebrate.onclick=()=>{
 
 
-for(let i=0;i<40;i++){
+    for(let i=0;i<50;i++){
 
 
-let fire =
-document.createElement("div");
+        const fire =
+        document.createElement("div");
 
 
-fire.innerHTML="✨";
+        fire.innerHTML="✨";
 
 
-fire.style.position="fixed";
+        fire.style.position="fixed";
 
 
-fire.style.left =
-Math.random()*100+"vw";
+        fire.style.left =
+        Math.random()*100+"vw";
 
 
-fire.style.top =
-Math.random()*100+"vh";
+        fire.style.top =
+        Math.random()*100+"vh";
 
 
-fire.style.fontSize="30px";
+        fire.style.fontSize="30px";
 
 
-document.body.appendChild(fire);
-
-
-
-setTimeout(()=>{
-
-fire.remove();
-
-},2000);
+        document.body.appendChild(fire);
 
 
 
-}
+        setTimeout(()=>{
+
+            fire.remove();
+
+        },2000);
+
+
+    }
 
 
 };
