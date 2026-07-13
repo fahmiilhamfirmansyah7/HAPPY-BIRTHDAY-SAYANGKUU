@@ -10,6 +10,7 @@ window.addEventListener("load",()=>{
 
         loading.style.opacity="0";
 
+
         setTimeout(()=>{
 
             loading.style.display="none";
@@ -17,6 +18,7 @@ window.addEventListener("load",()=>{
             document
             .getElementById("welcome")
             .classList.remove("hide");
+
 
         },1000);
 
@@ -26,112 +28,34 @@ window.addEventListener("load",()=>{
 });
 
 
+
+
 // ===========================
-// WELCOME BUTTON
+// OPEN GIFT
 // ===========================
 
 const startBtn = document.getElementById("startBtn");
+
 
 if(startBtn){
 
 startBtn.onclick = ()=>{
 
-    document.getElementById("welcome").style.display="none";
 
     document
-    .getElementById("countdown")
+    .getElementById("welcome")
+    .style.display="none";
+
+
+    document
+    .getElementById("envelope")
     .classList.remove("hide");
 
-    startCountdown();
 
 };
 
 }
 
-
-// ===========================
-// COUNTDOWN
-// ===========================
-
-function startCountdown(){
-
-    const target =
-    new Date("July 14, 2026 00:00:00")
-    .getTime();
-
-
-    const timer=setInterval(()=>{
-
-
-        const now=new Date().getTime();
-
-        const distance=target-now;
-
-
-        const element =
-        document.getElementById("countdownText");
-
-
-        if(distance<=0){
-
-            clearInterval(timer);
-
-            element.innerHTML=
-            "🎂 Happy Birthday Sindi ❤️";
-
-
-            setTimeout(()=>{
-
-                document
-                .getElementById("countdown")
-                .style.display="none";
-
-
-                document
-                .getElementById("envelope")
-                .classList.remove("hide");
-
-
-            },3000);
-
-
-        }else{
-
-
-            let days=Math.floor(
-                distance/(1000*60*60*24)
-            );
-
-
-            let hours=Math.floor(
-                (distance%(1000*60*60*24))/
-                (1000*60*60)
-            );
-
-
-            let minutes=Math.floor(
-                (distance%(1000*60*60))/
-                (1000*60)
-            );
-
-
-            let seconds=Math.floor(
-                (distance%(1000*60))/1000
-            );
-
-
-            element.innerHTML=
-            `${days} Hari 
-            ${hours} Jam 
-            ${minutes} Menit 
-            ${seconds} Detik`;
-
-        }
-
-
-    },1000);
-
-}
 
 
 
@@ -146,98 +70,109 @@ document.querySelector(".envelope-box");
 
 if(envelope){
 
+
 envelope.onclick=()=>{
 
 
-    document
-    .querySelector(".envelope-top")
-    .style.transform=
-    "rotateX(180deg)";
-
-
-    document
-    .querySelector(".letter-preview")
-    .style.top="-20px";
+document
+.querySelector(".envelope-top")
+.style.transform =
+"rotateX(180deg)";
 
 
 
-    setTimeout(()=>{
+document
+.querySelector(".letter-preview")
+.style.top="-20px";
 
 
-        document
-        .getElementById("envelope")
-        .style.display="none";
+
+setTimeout(()=>{
 
 
-        document
-        .getElementById("letter")
-        .classList.remove("hide");
+document
+.getElementById("envelope")
+.style.display="none";
 
 
-        startTyping();
+
+document
+.getElementById("letter")
+.classList.remove("hide");
 
 
-    },1000);
+
+startTyping();
+
+
+
+},1000);
 
 
 
 };
 
+
 }
 
 
 
+
+
 // ===========================
-// TYPING LETTER
+// LETTER TYPING
 // ===========================
 
 
-const message=`
+const message = `
 
 Selamat ulang tahun Sindi ❤️
 
-Hari ini adalah hari spesialmu.
+Semoga di umur yang baru ini
+kamu selalu diberikan kebahagiaan,
+kesehatan, dan semua impianmu
+bisa tercapai.
 
-Terima kasih sudah hadir dan membuat
-hari-hariku menjadi lebih indah.
+Terima kasih sudah menjadi
+bagian indah dalam hidupku.
 
-Semoga semua impianmu tercapai,
-selalu diberikan kebahagiaan,
-kesehatan, dan kesuksesan.
+Tetap menjadi Sindi yang aku sayangi.
 
-Tetap menjadi Sindi yang aku kenal.
-
-Aku sayang kamu ❤️
+I Love You ❤️
 
 - Fahmi
 
 `;
 
 
-let typingIndex=0;
+
+let index = 0;
+
 
 
 function startTyping(){
 
 
-const typing=
+const typing =
 document.getElementById("typing");
+
 
 
 function write(){
 
 
-if(typingIndex < message.length){
+if(index < message.length){
 
 
 typing.innerHTML +=
-message.charAt(typingIndex);
+message.charAt(index);
 
 
-typingIndex++;
+index++;
 
 
 setTimeout(write,50);
+
 
 
 }else{
@@ -245,23 +180,26 @@ setTimeout(write,50);
 
 setTimeout(()=>{
 
-
 showNextSections();
-
 
 },3000);
 
 
+
 }
 
 
 }
+
 
 
 write();
 
 
+
 }
+
+
 
 
 
@@ -278,6 +216,7 @@ document
 .style.display="none";
 
 
+
 const sections=[
 
 "gallery",
@@ -291,37 +230,47 @@ const sections=[
 ];
 
 
+
 let delay=0;
 
 
-sections.forEach(id=>{
+
+sections.forEach(section=>{
 
 
 setTimeout(()=>{
 
 
 document
-.getElementById(id)
+.getElementById(section)
 .classList.remove("hide");
 
 
+
 document
-.getElementById(id)
+.getElementById(section)
 .scrollIntoView({
+
 behavior:"smooth"
+
 });
+
 
 
 },delay);
 
 
-delay+=4000;
+
+delay += 4000;
+
 
 
 });
 
 
+
 }
+
 
 
 
@@ -381,6 +330,8 @@ playing=false;
 
 
 
+
+
 // ===========================
 // FLOATING HEARTS
 // ===========================
@@ -389,7 +340,7 @@ playing=false;
 function createHeart(){
 
 
-const heart=
+const heart =
 document.createElement("div");
 
 
@@ -398,18 +349,18 @@ heart.innerHTML="❤️";
 
 heart.style.position="fixed";
 
-heart.style.left=
+heart.style.left =
 Math.random()*100+"vw";
 
 
 heart.style.bottom="-20px";
 
 
-heart.style.fontSize=
+heart.style.fontSize =
 Math.random()*25+15+"px";
 
 
-heart.style.animation=
+heart.style.animation =
 "float 6s linear";
 
 
@@ -421,9 +372,7 @@ document
 
 setTimeout(()=>{
 
-
 heart.remove();
-
 
 },6000);
 
@@ -435,6 +384,9 @@ setInterval(createHeart,500);
 
 
 
+
+
+
 // ===========================
 // SAKURA
 // ===========================
@@ -443,7 +395,7 @@ setInterval(createHeart,500);
 function createSakura(){
 
 
-const sakura=
+const sakura =
 document.createElement("div");
 
 
@@ -456,15 +408,14 @@ sakura.style.position="fixed";
 sakura.style.top="-20px";
 
 
-sakura.style.left=
+sakura.style.left =
 Math.random()*100+"vw";
 
 
-sakura.style.fontSize=
-"25px";
+sakura.style.fontSize="25px";
 
 
-sakura.style.animation=
+sakura.style.animation =
 "fall 8s linear";
 
 
@@ -481,10 +432,14 @@ sakura.remove();
 },8000);
 
 
+
 }
 
 
 setInterval(createSakura,800);
+
+
+
 
 
 
@@ -497,46 +452,56 @@ const stars =
 document.getElementById("stars");
 
 
+
+if(stars){
+
+
 for(let i=0;i<150;i++){
 
 
-let star=
+let star =
 document.createElement("div");
 
 
 star.style.position="absolute";
 
-
 star.style.width="2px";
 
 star.style.height="2px";
 
-
 star.style.background="white";
 
 
-star.style.left=
+star.style.left =
 Math.random()*100+"%";
 
 
-star.style.top=
+star.style.top =
 Math.random()*100+"%";
 
 
 stars.appendChild(star);
 
 
+
+}
+
+
 }
 
 
 
+
+
+
 // ===========================
-// CELEBRATE BUTTON
+// CELEBRATE
 // ===========================
 
 
 const celebrate =
 document.getElementById("celebrate");
+
 
 
 if(celebrate){
@@ -545,10 +510,10 @@ if(celebrate){
 celebrate.onclick=()=>{
 
 
-for(let i=0;i<30;i++){
+for(let i=0;i<40;i++){
 
 
-let fire=
+let fire =
 document.createElement("div");
 
 
@@ -558,11 +523,11 @@ fire.innerHTML="✨";
 fire.style.position="fixed";
 
 
-fire.style.left=
+fire.style.left =
 Math.random()*100+"vw";
 
 
-fire.style.top=
+fire.style.top =
 Math.random()*100+"vh";
 
 
@@ -570,6 +535,7 @@ fire.style.fontSize="30px";
 
 
 document.body.appendChild(fire);
+
 
 
 setTimeout(()=>{
