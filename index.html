@@ -21,37 +21,71 @@
 
     <!-- ================= LOADING ================= -->
 
-    <section id="loading">
+    <<section id="loading">
 
-        <h1>❤️</h1>
+    <div class="loading-content">
 
-        <h2>Preparing your special gift...</h2>
+        <div class="heart-loader">
 
-        <div class="loader"></div>
-
-    </section>
-
-    <!-- ================= WELCOME ================= -->
-
-    <section id="welcome">
-
-        <div class="card">
-
-            <h3>Happy Birthday</h3>
-
-            <h1>Sindi Reskia Putri ❤️</h1>
-
-            <p>14 Juli</p>
-
-            <button id="startBtn">
-
-                💝 Buka Hadiah
-
-            </button>
+            ❤️
 
         </div>
 
-    </section>
+        <h2>
+
+            Preparing Your Gift...
+
+        </h2>
+
+        <div class="loading-bar">
+
+            <div class="loading-progress"></div>
+
+        </div>
+
+        <p>
+
+            Made with ❤️ by Fahmi
+
+        </p>
+
+    </div>
+
+</section>
+
+    <!-- ================= WELCOME ================= -->
+
+    <section id="welcome" class="hide">
+
+    <div class="card">
+
+        <h3>
+
+            Happy Birthday
+
+        </h3>
+
+        <h1>
+
+            Sindi Reskia Putri ❤️
+
+        </h1>
+
+        <p>
+
+            14 Juli
+
+        </p>
+
+        <button id="startBtn">
+
+            💝 Buka Hadiah
+
+        </button>
+
+    </div>
+
+</section>
 
     <!-- ================= COUNTDOWN ================= -->
 
@@ -73,40 +107,42 @@
 
     <!-- ================= ENVELOPE ================= -->
 
-    <section id="envelope">
+    <section id="envelope" class="hide">
 
-        <div class="envelope">
+    <div class="envelope-container">
 
-            💌
+        <div class="envelope-box">
+
+            <div class="envelope-top"></div>
+
+            <div class="envelope-body"></div>
+
+            <div class="letter-preview">
+                💌
+            </div>
 
         </div>
 
-        <h2>
+        <h2>Klik Amplop Ini ❤️</h2>
 
-            Klik Amplop
-
-        </h2>
+    </div>
 
     </section>
 
     <!-- ================= LETTER ================= -->
 
-    <section id="letter">
+    <section id="letter" class="hide">
 
-        <div class="paper">
+    <div class="paper">
 
-            <h2>
+        <h2>Untuk Sindi ❤️</h2>
 
-                Untuk Sindi ❤️
+        <p id="typing"></p>
 
-            </h2>
-
-            <p id="typing"></p>
-
-        </div>
+    </div>
 
     </section>
-
+    
     <!-- ================= GALLERY ================= -->
 
     <section id="gallery">
@@ -240,9 +276,30 @@
         </div>
 
     </section>
+<button id="musicBtn">
 
+🎵
+
+</button>
+
+<script src="script.js"></script>
+
+</body>
     <script src="script.js"></script>
 
 </body>
+<!-- Background -->
+
+<div id="background">
+
+    <div id="stars"></div>
+
+    <div id="moon"></div>
+
+    <div id="hearts"></div>
+
+    <div id="sakura"></div>
+
+</div>
 
 </html>
