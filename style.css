@@ -521,3 +521,66 @@ line-height:2;
 white-space:pre-line;
 
 }
+
+/* ===========================
+GALLERY
+=========================== */
+
+#gallery{
+
+flex-direction:column;
+
+}
+
+
+.slider{
+
+width:90%;
+
+max-width:1000px;
+
+display:flex;
+
+gap:25px;
+
+overflow-x:auto;
+
+padding:30px;
+
+scroll-behavior:smooth;
+
+}
+
+
+.slider::-webkit-scrollbar{
+
+height:8px;
+
+}
+
+
+.slider img{
+
+width:250px;
+
+height:350px;
+
+object-fit:cover;
+
+border-radius:25px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.5);
+
+transition:.5s;
+
+flex-shrink:0;
+
+}
+
+
+.slider img:hover{
+
+transform:scale(1.08);
+
+}
